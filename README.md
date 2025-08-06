@@ -117,11 +117,6 @@ mypy multi_tool_agent/
 - Make sure your virtual environment is activated
 - Run `pip install -e .` to install the project in development mode
 
-**Google ADK authentication issues:**
-- Check your `GOOGLE_CLOUD_PROJECT` in `.env`
-- Ensure you have proper Google Cloud credentials set up
-- Run `gcloud auth application-default login` if using ADC
-
 **Virtual environment issues:**
 - Delete `.venv` folder and run `python3 setup.py` again
 - Make sure you're using Python 3.9 or higher
