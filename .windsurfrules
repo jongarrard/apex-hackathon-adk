@@ -1,0 +1,92 @@
+# Google ADK Agent Development Rules - Clean Code & Documentation First
+## Critical Principles
+**AGENTS RELY ON CODE CLARITY FOR ORCHESTRATION**
+- The ADK framework uses your code structure, docstrings, and function signatures to understand how to orchestrate agents
+- Poor documentation = Poor agent performance
+- Clean code = Reliable agent behavior
+- Every function, class, and agent MUST have comprehensive docstrings
+## Project Setup
+- Use Python with google.adk
+- Organize agents in app/agent_name/ with agent.py and **init**.py
+- Define root_agent in agent.py with DETAILED docstring explaining purpose
+- Store environment variables in .env within agent directory
+- Each agent directory MUST have clear README.md explaining agent capabilities
+## Agent Types
+- LlmAgent: For LLM reasoning and content generation
+- SequentialAgent: For ordered task workflows
+- FunctionTools: For custom capabilities
+- ALL agent types MUST have docstrings that clearly explain:
+  - What the agent does
+  - What inputs it expects
+  - What outputs it produces
+  - How it fits into the overall workflow
+## Documentation Requirements
+### DOCSTRING STANDARDS (CRITICAL FOR ORCHESTRATION)
+- Use Google-style docstrings for all functions, classes, and agents
+- Include Args, Returns, Raises sections
+- Provide examples in docstrings when possible
+- Explain the business logic, not just the technical implementation
+- Document side effects and state changes
+- Use clear, descriptive parameter names that self-document
+### FUNCTION NAMING & SIGNATURES
+- Function names must be descriptive and action-oriented
+- Use type hints on ALL parameters and return values
+- Avoid abbreviations - clarity over brevity
+- Parameters should have meaningful names, not generic ones like 'data' or 'input'
+## Code Quality Standards
+### CLEAN CODE PRINCIPLES (ESSENTIAL FOR AGENT RELIABILITY)
+- Single Responsibility Principle: Each function does ONE thing well
+- Functions should be small (< 20 lines when possible)
+- No magic numbers or strings - use named constants
+- Clear variable names that explain intent
+- Consistent error handling patterns
+- Proper logging at appropriate levels
+### AGENT-SPECIFIC CLEAN CODE
+- Agent instructions must be crystal clear and unambiguous
+- Tool descriptions must accurately reflect what the tool does
+- State management must be explicit and well-documented
+- Error messages should be helpful for debugging orchestration issues
+## File Upload Workflow
+1. Accept file content as string/bytes in FunctionTool
+2. Store with artifact_service.save_artifact(key, content)
+3. Pass artifact key via ToolContext.state between agents
+4. Use fleep library for file type identification (not mimetypes)
+5. Save file_type, file_extension, file_mime to session state
+6. DOCUMENT each step with clear docstrings explaining the data flow
+## Data Extraction
+- Use LlmAgent with output_schema (Pydantic model) for structured extraction
+- LlmAgent with output_schema cannot use tools - provide all input directly
+- Instruction must specify JSON output conforming to schema only
+- Pydantic models MUST have clear field descriptions and examples
+- Schema validation errors should provide helpful debugging information
+## Python Essentials
+### MANDATORY REQUIREMENTS
+- Type hints on ALL functions, parameters, and return values
+- Pydantic models for ALL data validation with field descriptions
+- Comprehensive docstrings for agents, tools, and functions
+- Clear error handling with descriptive error messages
+- Consistent logging patterns throughout the codebase
+- Unit tests for all business logic functions
+### ORCHESTRATION-CRITICAL ELEMENTS
+- Agent instructions must be unambiguous and complete
+- Tool descriptions must match exactly what the tool does
+- State transitions must be clearly documented
+- Dependencies between agents must be explicit in documentation
+## Testing and Validation
+- Write unit tests for all utility functions
+- Test agent workflows end-to-end
+- Validate that docstrings accurately describe behavior
+- Ensure error messages are helpful for debugging
+- Test edge cases and error conditions
+- Document test scenarios in agent README files
+## Orchestration Best Practices
+### AGENT COMMUNICATION
+- Use clear, structured data formats for inter-agent communication
+- Document the expected data flow between agents
+- Handle missing or malformed data gracefully
+- Provide meaningful error messages when orchestration fails
+### STATE MANAGEMENT
+- Keep state minimal and well-defined
+- Document what state is shared between agents
+- Use immutable data structures when possible
+- Clear state cleanup patterns
