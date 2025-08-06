@@ -41,9 +41,21 @@ This repository contains AI agents built with Google's Agent Development Kit (AD
    # Edit .env with your actual values
    ```
 
-5. **Run the agent**:
+5. **Run the agent** (choose one):
+   
+   **🚀 FastAPI Server** (for API endpoints):
    ```bash
-   python -m multi_tool_agent
+   adk api_server
+   ```
+   
+   **🌐 Web UI** (interactive chat interface):
+   ```bash
+   adk web
+   ```
+   
+   **💬 Terminal Chat** (command line):
+   ```bash
+   adk run multi_tool_agent
    ```
 
 ## 📁 Project Structure
